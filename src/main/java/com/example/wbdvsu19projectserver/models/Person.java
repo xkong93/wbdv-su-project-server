@@ -26,9 +26,6 @@ public class Person {
   private String firstName;
   private String lastName;
 
-
-  private List<Review> reviewList;
-
   public Person(String username, String email, String password, String firstName, String lastName) {
     this.username = username;
     this.email = email;
