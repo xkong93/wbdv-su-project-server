@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,7 +15,6 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "review")
-
 public class Review {
 
   @Id
@@ -49,7 +47,9 @@ public class Review {
     this.description = description;
     this.imageUrl = imageUrl;
   }
-
+  public Review(){
+    super();
+  }
   public long getId() {
     return id;
   }
@@ -137,4 +137,6 @@ public class Review {
   public void setProduct(Product product) {
     this.product = product;
   }
+
+
 }

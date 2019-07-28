@@ -18,9 +18,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class User extends Person {
 
-
-
-
   @OneToMany(mappedBy = "user")
   private List<Review> reviews;
 
@@ -45,5 +42,11 @@ public class User extends Person {
 
   public void setCollectedProducts(List<Product> collectedProducts) {
     this.collectedProducts = collectedProducts;
+  }
+  public void addProductToUser(Product product){
+    this.collectedProducts.add(product);
+    if (!product.getCollectedUsers().contains(this)){
+      product.getCollectedUsers().add(this);
+    }
   }
 }

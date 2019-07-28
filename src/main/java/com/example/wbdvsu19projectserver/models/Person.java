@@ -26,6 +26,8 @@ public class Person {
   private String firstName;
   private String lastName;
 
+
+
   public Person(String username, String email, String password, String firstName, String lastName) {
     this.username = username;
     this.email = email;
@@ -84,4 +86,7 @@ public class Person {
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
+
+
+
 }

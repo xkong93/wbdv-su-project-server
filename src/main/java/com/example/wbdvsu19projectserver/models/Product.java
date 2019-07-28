@@ -25,7 +25,8 @@ public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private String sku;
+  private String urlKey;
+  private String uiud;
   private String description;
   private int marketPrice;
   private String imageUrl;
@@ -47,13 +48,18 @@ public class Product {
     return reviews;
   }
 
-  public Product(String sku, String description, int marketPrice, String imageUrl) {
-    this.sku = sku;
+
+  public Product(String urlKey, String uiud, String description, int marketPrice, String imageUrl) {
+    this.urlKey = urlKey;
+    this.uiud = uiud;
     this.description = description;
     this.marketPrice = marketPrice;
     this.imageUrl = imageUrl;
   }
 
+  public Product(){
+    super();
+  }
   public void setReviews(List<Review> reviews) {
     this.reviews = reviews;
   }
@@ -73,4 +79,61 @@ public class Product {
   public void setEditor(Editor editor) {
     this.editor = editor;
   }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getUrlKey() {
+    return urlKey;
+  }
+
+  public void setUrlKey(String urlKey) {
+    this.urlKey = urlKey;
+  }
+
+  public String getUiud() {
+    return uiud;
+  }
+
+  public void setUiud(String uiud) {
+    this.uiud = uiud;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public int getMarketPrice() {
+    return marketPrice;
+  }
+
+  public void setMarketPrice(int marketPrice) {
+    this.marketPrice = marketPrice;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
+  }
+
+  public void addUserToProduct(User user){
+    this.collectedUsers.add(user);
+    if(!user.getCollectedProducts().contains(this)){
+      user.getCollectedProducts().add(this);
+    }
+  }
+
+
 }
