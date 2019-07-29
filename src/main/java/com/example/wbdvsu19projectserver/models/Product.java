@@ -25,11 +25,18 @@ public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
+  private String title;
   private String urlKey;
   private String uiud;
   private String description;
   private int marketPrice;
+  private int retailPrice;
   private String imageUrl;
+  private String styleCode;
+  private String colorway;
+  private String releaseDate;
+  private String brand;
+
 
   @OneToMany(mappedBy = "product")
   private List<Review> reviews;
@@ -48,13 +55,18 @@ public class Product {
     return reviews;
   }
 
-
-  public Product(String urlKey, String uiud, String description, int marketPrice, String imageUrl) {
+  public Product(String title, String urlKey, String uiud, String description, int marketPrice, int retailPrice, String imageUrl, String styleCode, String colorway, String releaseDate, String brand) {
+    this.title = title;
     this.urlKey = urlKey;
     this.uiud = uiud;
     this.description = description;
     this.marketPrice = marketPrice;
+    this.retailPrice = retailPrice;
     this.imageUrl = imageUrl;
+    this.styleCode = styleCode;
+    this.colorway = colorway;
+    this.releaseDate = releaseDate;
+    this.brand = brand;
   }
 
   public Product(){
@@ -135,5 +147,51 @@ public class Product {
     }
   }
 
+  public int getRetailPrice() {
+    return retailPrice;
+  }
 
+  public void setRetailPrice(int retailPrice) {
+    this.retailPrice = retailPrice;
+  }
+
+  public String getStyleCode() {
+    return styleCode;
+  }
+
+  public void setStyleCode(String styleCode) {
+    this.styleCode = styleCode;
+  }
+
+  public String getColorway() {
+    return colorway;
+  }
+
+  public void setColorway(String colorway) {
+    this.colorway = colorway;
+  }
+
+  public String getReleaseDate() {
+    return releaseDate;
+  }
+
+  public void setReleaseDate(String releaseDate) {
+    this.releaseDate = releaseDate;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
 }
