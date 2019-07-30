@@ -25,28 +25,28 @@ public class UserService {
   @Autowired
   ProductRepository productRepository;
 
-  public List<User> createUser(User newUser){
-     userRepository.save(newUser);
-     return findAllUsers();
+  public List<User> createUser(User newUser) {
+    userRepository.save(newUser);
+    return findAllUsers();
   }
 
-  public void addProductToUser(Long uid, Long pid) {
+  public void addProductToUser(Integer uid, Integer pid) {
     User user = userRepository.findById(uid).get();
     Product product = productRepository.findById(pid).get();
     user.addProductToUser(product);
     userRepository.save(user);
   }
 
-  public List<User> findAllUsers(){
-    return (List<User>)userRepository.findAll();
+  public List<User> findAllUsers() {
+    return (List<User>) userRepository.findAll();
   }
 
-  public User findUserById(Long uid){
+  public User findUserById(Integer uid) {
     User user = userRepository.findById(uid).get();
     return user;
   }
 
-  public List<Product> getAllProductsFromUserById(Long uid){
+  public List<Product> getAllProductsFromUserById(Integer uid) {
     User user = userRepository.findById(uid).get();
     return user.getCollectedProducts();
   }

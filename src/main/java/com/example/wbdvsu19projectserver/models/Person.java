@@ -19,7 +19,7 @@ public class Person {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
   private String username;
   private String email;
   private String password;
@@ -39,11 +39,11 @@ public class Person {
     super();
   }
 
-  public long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

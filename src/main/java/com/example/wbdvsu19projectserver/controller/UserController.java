@@ -38,19 +38,19 @@ public class UserController {
   }
 
   @GetMapping("/api/user/{uid}")
-  public User findUserById(@PathVariable("uid") Long uid) {
+  public User findUserById(@PathVariable("uid") Integer uid) {
     return service.findUserById(uid);
   }
 
   @PostMapping("/api/user/{uid}/product/{pid}")
   public List<Product> addProductToUser(
-          @PathVariable("uid") Long uid, @PathVariable("pid") Long pid) {
+          @PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid) {
      service.addProductToUser(uid,pid);
      return getAllProductsFromUserById(uid);
   }
 
   @GetMapping("/api/user/{uid}/product")
-  public List<Product> getAllProductsFromUserById (@PathVariable("uid") Long uid){
+  public List<Product> getAllProductsFromUserById (@PathVariable("uid") Integer uid){
     return service.getAllProductsFromUserById(uid);
   }
 }

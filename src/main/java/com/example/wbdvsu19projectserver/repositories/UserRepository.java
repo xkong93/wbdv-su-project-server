@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
  * @author Xuan Kong
  * @Date 2019-07-27.
  */
-public interface UserRepository extends CrudRepository<User,Long> {
+public interface UserRepository extends CrudRepository<User,Integer> {
 
 }

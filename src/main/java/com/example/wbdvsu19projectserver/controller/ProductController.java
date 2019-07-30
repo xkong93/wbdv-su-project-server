@@ -1,6 +1,7 @@
 package com.example.wbdvsu19projectserver.controller;
 
 import com.example.wbdvsu19projectserver.models.Product;
+import com.example.wbdvsu19projectserver.models.User;
 import com.example.wbdvsu19projectserver.sevices.ProductService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
+import java.util.List;
 
 
 /**
@@ -29,13 +30,12 @@ import java.net.HttpURLConnection;
 @RestController
 public class ProductController {
 
-  private static HttpURLConnection connection;
   @Autowired
   ProductService productService;
 
 
   @GetMapping("/api/product/{pid}")
-  public Product findProductById(@PathVariable("pid") Long pid) {
+  public Product findProductById(@PathVariable("pid") Integer pid) {
     return productService.findProductById(pid);
   }
 
@@ -44,8 +44,8 @@ public class ProductController {
   gzip encoding issue
   No need to use cors proxy server in back end. Use it only in front end.
    */
-  @PostMapping("/api/product/{urlKey}")
-  public void createProduct(@PathVariable("urlKey") String urlKey) {
+  @PostMapping("/apiv2/product/{urlKey}/user/{uid}")
+  public List<User> createProduct(@PathVariable("urlKey") String urlKey, @PathVariable("uid") Integer uid) {
     String productUrl = "https://stockx.com/api/products/" + urlKey + "?includes=market,360&currency=USD";
     HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
             HttpClientBuilder.create().build());
@@ -61,11 +61,23 @@ public class ProductController {
     HttpEntity<String> entity = new HttpEntity<>(headers);
     ResponseEntity<String> res = restTemplate.exchange(productUrl, HttpMethod.GET, entity, String.class);
     String rawJson = res.getBody();
-
     //convert raw json data into Product
+
     Product newProduct = rawJsonToProduct(rawJson);
-    productService.createProduct(newProduct);
+
+
+    Product p = productService.createProduct(newProduct);
+    Integer pid = p.getId();
+      try {
+        productService.addUserToProduct(uid,pid);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+    return productService.getAllUsersFromProductById(pid);
+
   }
+
 
   //https://www.journaldev.com/2324/jackson-json-java-parser-api-example-tutorial#jackson-json-8211-read-specific-json-key
   private Product rawJsonToProduct(String rawJson) {
@@ -115,5 +127,17 @@ public class ProductController {
     return newProduct;
   }
 
+
+  @PostMapping("/api/product/{pid}/user/{uid}")
+  public List<User> addUserToProduct(@PathVariable("pid") Integer pid, @PathVariable("uid")
+          Integer uid) {
+    productService.addUserToProduct(uid, pid);
+    return productService.getAllUsersFromProductById(pid);
+  }
+
+  @GetMapping("/api/product/{pid}/user")
+  public List<User> addUserToProduct(@PathVariable("pid") Integer pid) {
+    return productService.getAllUsersFromProductById(pid);
+  }
 
 }

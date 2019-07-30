@@ -24,24 +24,27 @@ public class ProductService {
 
 
   public Product createProduct(Product newProduct){
-    return productRepository.save(newProduct);
+      return productRepository.save(newProduct);
   }
 
-  public void addUserToProduct(Long uid, Long pid) {
+  public void addUserToProduct(Integer uid, Integer pid) {
     User user = userRepository.findById(uid).get();
     Product product = productRepository.findById(pid).get();
     product.addUserToProduct(user);
-    productRepository.save(product);
   }
 
   public List<Product> findAllProducts(){
     return (List<Product>)productRepository.findAll();
   }
 
-  public Product findProductById(Long pid){
+  public Product findProductById(Integer pid){
     return productRepository.findById(pid).get();
   }
 
+  public List<User> getAllUsersFromProductById(Integer pid){
+    Product product = productRepository.findById(pid).get();
+    return product.getCollectedUsers();
+  }
 
 
 }

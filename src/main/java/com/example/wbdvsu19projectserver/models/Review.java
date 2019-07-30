@@ -48,7 +48,6 @@ public class Review {
     this.imageUrl = imageUrl;
   }
   public Review(){
-    super();
   }
   public long getId() {
     return id;

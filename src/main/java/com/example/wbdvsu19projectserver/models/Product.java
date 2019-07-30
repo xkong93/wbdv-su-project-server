@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -24,10 +26,13 @@ public class Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
   private String title;
   private String urlKey;
   private String uiud;
+
+
+  @Column(columnDefinition = "TEXT")
   private String description;
   private int marketPrice;
   private int retailPrice;
@@ -59,6 +64,7 @@ public class Product {
     this.title = title;
     this.urlKey = urlKey;
     this.uiud = uiud;
+
     this.description = description;
     this.marketPrice = marketPrice;
     this.retailPrice = retailPrice;
@@ -69,9 +75,9 @@ public class Product {
     this.brand = brand;
   }
 
-  public Product(){
-    super();
+  public Product() {
   }
+
   public void setReviews(List<Review> reviews) {
     this.reviews = reviews;
   }
@@ -92,11 +98,11 @@ public class Product {
     this.editor = editor;
   }
 
-  public long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -140,9 +146,10 @@ public class Product {
     this.imageUrl = imageUrl;
   }
 
-  public void addUserToProduct(User user){
+  public void addUserToProduct(User user) {
+    System.out.println(user.getUsername());
     this.collectedUsers.add(user);
-    if(!user.getCollectedProducts().contains(this)){
+    if (!user.getCollectedProducts().contains(this)) {
       user.getCollectedProducts().add(this);
     }
   }

@@ -23,8 +23,8 @@ public class User extends Person {
 
   @ManyToMany
   @JoinTable(name = "USER_PRODUCT",
-          joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
-          inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID"))
+          joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "id"))
   private List<Product> collectedProducts;
 
 
