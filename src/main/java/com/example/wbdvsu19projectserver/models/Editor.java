@@ -21,14 +21,13 @@ public class Editor extends Person {
    */
 
   @OneToMany(mappedBy = "editor")
-  private List<Product> featuredList;
+  private List<Product> featuredProducts;
 
-  public List<Product> getFeaturedList() {
-    return featuredList;
+  public List<Product> getFeaturedProducts() {
+    return featuredProducts;
   }
 
-  public void setFeaturedList(List<Product> featuredList) {
-    this.featuredList = featuredList;
+  public void setFeaturedProducts(List<Product> featuredProducts) {
+    this.featuredProducts = featuredProducts;
   }
-
 }

@@ -1,10 +1,7 @@
 package com.example.wbdvsu19projectserver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -146,12 +143,6 @@ public class Product {
     this.imageUrl = imageUrl;
   }
 
-  public void addUserToProduct(User user) {
-    this.collectedUsers.add(user);
-    if (!user.getCollectedProducts().contains(this)) {
-      user.getCollectedProducts().add(this);
-    }
-  }
 
   public int getRetailPrice() {
     return retailPrice;
@@ -199,5 +190,12 @@ public class Product {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public void addUserToProduct(User user) {
+    this.collectedUsers.add(user);
+    if (!user.getCollectedProducts().contains(this)) {
+      user.getCollectedProducts().add(this);
+    }
   }
 }
