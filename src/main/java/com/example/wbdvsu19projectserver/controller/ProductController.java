@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -44,8 +45,8 @@ public class ProductController {
   gzip encoding issue
   No need to use cors proxy server in back end. Use it only in front end.
    */
-  @PostMapping("/apiv2/product/{urlKey}/user/{uid}")
-  public List<User> createProduct(@PathVariable("urlKey") String urlKey, @PathVariable("uid") Integer uid) {
+  @PostMapping("/api/product/{urlKey}")
+  public void createProduct(@PathVariable("urlKey") String urlKey) {
     String productUrl = "https://stockx.com/api/products/" + urlKey + "?includes=market,360&currency=USD";
     HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
             HttpClientBuilder.create().build());
@@ -61,23 +62,11 @@ public class ProductController {
     HttpEntity<String> entity = new HttpEntity<>(headers);
     ResponseEntity<String> res = restTemplate.exchange(productUrl, HttpMethod.GET, entity, String.class);
     String rawJson = res.getBody();
+
     //convert raw json data into Product
-
     Product newProduct = rawJsonToProduct(rawJson);
-
-
-    Product p = productService.createProduct(newProduct);
-    Integer pid = p.getId();
-      try {
-        productService.addUserToProduct(uid,pid);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-
-    return productService.getAllUsersFromProductById(pid);
-
+    productService.createProduct(newProduct);
   }
-
 
   //https://www.journaldev.com/2324/jackson-json-java-parser-api-example-tutorial#jackson-json-8211-read-specific-json-key
   private Product rawJsonToProduct(String rawJson) {
@@ -110,7 +99,7 @@ public class ProductController {
       String releaseDate = releaseDateNode.asText();
 
       //add traits to the new product
-      newProduct.setUiud(uuid);
+      newProduct.setUuid(uuid);
       newProduct.setBrand(brand);
       newProduct.setUrlKey(urlKey);
       newProduct.setTitle(title);
@@ -135,9 +124,9 @@ public class ProductController {
     return productService.getAllUsersFromProductById(pid);
   }
 
-  @GetMapping("/api/product/{pid}/user")
-  public List<User> addUserToProduct(@PathVariable("pid") Integer pid) {
-    return productService.getAllUsersFromProductById(pid);
+  @GetMapping("/api/product")
+  public List<Product> findAllProduct() {
+    return productService.findAllProducts();
   }
 
 }

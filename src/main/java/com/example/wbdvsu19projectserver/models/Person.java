@@ -2,6 +2,7 @@ package com.example.wbdvsu19projectserver.models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,9 @@ public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
+  @Column(unique = true)
   private String username;
+  @Column(unique = true)
   private String email;
   private String password;
   private String firstName;
@@ -36,7 +39,6 @@ public class Person {
     this.lastName = lastName;
   }
   public Person(){
-    super();
   }
 
   public Integer getId() {

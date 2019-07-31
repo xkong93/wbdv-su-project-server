@@ -1,6 +1,7 @@
 package com.example.wbdvsu19projectserver.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,9 +24,9 @@ public class User extends Person {
 
   @ManyToMany
   @JoinTable(name = "USER_PRODUCT",
-          joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "id"),
-          inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "id"))
-  private List<Product> collectedProducts;
+          joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "ID"),
+          inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID"))
+  private Set<Product> collectedProducts;
 
 
   public List<Review> getReviews() {
@@ -36,11 +37,11 @@ public class User extends Person {
     this.reviews = reviews;
   }
 
-  public List<Product> getCollectedProducts() {
+  public Set<Product> getCollectedProducts() {
     return collectedProducts;
   }
 
-  public void setCollectedProducts(List<Product> collectedProducts) {
+  public void setCollectedProducts(Set<Product> collectedProducts) {
     this.collectedProducts = collectedProducts;
   }
   public void addProductToUser(Product product){
@@ -48,5 +49,17 @@ public class User extends Person {
     if (!product.getCollectedUsers().contains(this)){
       product.getCollectedUsers().add(this);
     }
+  }
+  public void deleteProductFromUser(Product product){
+    this.collectedProducts.remove(product);
+    if (!product.getCollectedUsers().contains(this)){
+      product.getCollectedUsers().remove(this);
+    }
+  }
+  public boolean getProductFromUser(Product product){
+    if (!this.getCollectedProducts().contains(product)){
+      return true;
+    }
+    return false;
   }
 }

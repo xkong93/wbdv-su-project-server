@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Xuan Kong
@@ -46,8 +47,16 @@ public class UserService {
     return user;
   }
 
-  public List<Product> getAllProductsFromUserById(Integer uid) {
+  public Set<Product> getAllProductsFromUserById(Integer uid) {
     User user = userRepository.findById(uid).get();
     return user.getCollectedProducts();
+  }
+
+  public Set<Product> deleteProductFromUser(Integer uid, Integer pid) {
+    User user = userRepository.findById(uid).get();
+    Product product = productRepository.findById(pid).get();
+    user.deleteProductFromUser(product);
+    userRepository.save(user);
+    return getAllProductsFromUserById(uid);
   }
 }

@@ -3,13 +3,13 @@ package com.example.wbdvsu19projectserver.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,10 +28,10 @@ public class Product {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String title;
+  @Column(unique = true)
   private String urlKey;
-  private String uiud;
-
-
+  @Column(unique = true)
+  private String uuid;
   @Column(columnDefinition = "TEXT")
   private String description;
   private int marketPrice;
@@ -60,10 +60,10 @@ public class Product {
     return reviews;
   }
 
-  public Product(String title, String urlKey, String uiud, String description, int marketPrice, int retailPrice, String imageUrl, String styleCode, String colorway, String releaseDate, String brand) {
+  public Product(String title, String urlKey, String uuid, String description, int marketPrice, int retailPrice, String imageUrl, String styleCode, String colorway, String releaseDate, String brand) {
     this.title = title;
     this.urlKey = urlKey;
-    this.uiud = uiud;
+    this.uuid = uuid;
 
     this.description = description;
     this.marketPrice = marketPrice;
@@ -114,12 +114,12 @@ public class Product {
     this.urlKey = urlKey;
   }
 
-  public String getUiud() {
-    return uiud;
+  public String getUuid() {
+    return uuid;
   }
 
-  public void setUiud(String uiud) {
-    this.uiud = uiud;
+  public void setUuid(String uuid) {
+    this.uuid = uuid;
   }
 
   public String getDescription() {
@@ -147,7 +147,6 @@ public class Product {
   }
 
   public void addUserToProduct(User user) {
-    System.out.println(user.getUsername());
     this.collectedUsers.add(user);
     if (!user.getCollectedProducts().contains(this)) {
       user.getCollectedProducts().add(this);
