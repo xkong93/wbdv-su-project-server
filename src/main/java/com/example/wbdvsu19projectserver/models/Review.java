@@ -97,7 +97,7 @@ public class Review {
     this.overall = overall;
   }
 
-  public boolean isRecommend() {
+  public boolean getIsRecommend() {
     return isRecommend;
   }
 
