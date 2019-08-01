@@ -33,4 +33,16 @@ public class ReviewController {
   public List<Review> getAllReviews(){
     return reviewService.findAllReviews();
   }
+
+  @GetMapping("/api/user/{uid}/product/{pid}/review")
+  public Review getReviewByUserForProduct(@PathVariable("pid") Integer pid,
+                                            @PathVariable("uid") Integer uid){
+      return reviewService.getReviewByUserForProduct(uid,pid);
+  }
+  @GetMapping("/api/user/{uid}/review")
+  public List<Review> getAllReviewsByUser(@PathVariable("uid") Integer uid){
+      return reviewService.getAllReviewsByUser(uid);
+  }
+
+
 }

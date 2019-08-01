@@ -35,11 +35,23 @@ public class ReviewService {
     return reviewRepository.save(review);
   }
 
-  public Review findReviewById(Integer rid){
+  public Review findReviewById(Integer rid) {
     Review review = reviewRepository.findById(rid).get();
     return review;
   }
-    public List<Review> findAllReviews(){
-    return (List<Review>)reviewRepository.findAll();
+
+  public List<Review> findAllReviews() {
+    return (List<Review>) reviewRepository.findAll();
+  }
+
+  public Review getReviewByUserForProduct(Integer uid, Integer pid){
+    Review review = reviewRepository.getReviewsByUserForProduct(uid,pid);
+    return review;
+  }
+
+  public List<Review> getAllReviewsByUser(Integer uid){
+    User user = userRepository.findById(uid).get();
+    List<Review> reviews = user.getReviews();
+    return reviews;
   }
 }
