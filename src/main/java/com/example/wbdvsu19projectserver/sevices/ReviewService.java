@@ -55,12 +55,16 @@ public class ReviewService {
     return reviews;
   }
 
-  public List<Review> getAllReviewsForProduct(Integer pid) {
+  public List<Review> getAllReviewsForProductById(Integer pid) {
     Product product = productRepository.findById(pid).get();
     List<Review> reviews = product.getReviews();
     return reviews;
   }
-
+  public List<Review> getAllReviewsForProductByUrlKey(String urlKey) {
+    Product product = productRepository.findProductByUrlKey(urlKey);
+    List<Review> reviews = product.getReviews();
+    return reviews;
+  }
   public Review updateReview(Integer rid, Review newReview) {
     Review review = reviewRepository.findById(rid).get();
     review.setComfort(newReview.getComfort());

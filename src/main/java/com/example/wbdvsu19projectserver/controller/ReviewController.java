@@ -4,6 +4,7 @@ import com.example.wbdvsu19projectserver.models.Review;
 import com.example.wbdvsu19projectserver.sevices.ReviewService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import java.util.List;
  * @Date 2019-07-31.
  */
 @RestController
+@CrossOrigin("*")
 public class ReviewController {
   @Autowired
   ReviewService reviewService;
@@ -47,11 +49,20 @@ public class ReviewController {
     return reviewService.getAllReviewsByUser(uid);
   }
 
-  @GetMapping("/api/product/{pid}/review")
-  public List<Review> getAllReviewsForProduct(@PathVariable("pid") Integer pid) {
-    return reviewService.getAllReviewsForProduct(pid);
-  }
+  //how to resolve ambiguous api endpoint
+//  @GetMapping("/api/product/{pid}/review")
+//  public List<Review> getAllReviewsForProductById(@PathVariable("pid") Integer pid) {
+//    return reviewService.getAllReviewsForProductById(pid);
+//  }
+  @GetMapping("/api/product/{urlKey}/review")
+  public List<Review> getAllReviewsForProductByUrlkey(@PathVariable("urlKey") String urlKey) {
+    try {
+      return reviewService.getAllReviewsForProductByUrlKey(urlKey);
 
+    }catch (Exception e){
+      return null;
+    }
+  }
   @PutMapping("api/review/{rid}")
   public Review updateReview(@PathVariable("rid") Integer rid, @RequestBody Review newReview) {
     return reviewService.updateReview(rid, newReview);
