@@ -1,5 +1,6 @@
 package com.example.wbdvsu19projectserver.controller;
 
+import com.example.wbdvsu19projectserver.models.Rating;
 import com.example.wbdvsu19projectserver.models.Review;
 import com.example.wbdvsu19projectserver.sevices.ReviewService;
 
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Xuan Kong
@@ -62,10 +61,20 @@ public class ReviewController {
   public List<Review> getAllReviewsForProductByUrlkey(@PathVariable("urlKey") String urlKey) {
     try {
       return reviewService.getAllReviewsForProductByUrlKey(urlKey);
-    }catch (Exception e){
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND,"REVIEW NOT FOUND", e);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "RATING NOT FOUND", e);
     }
   }
+
+  @GetMapping("/api/product/{urlKey}/rating")
+  public Rating getRatingForProductByUrlkey(@PathVariable("urlKey") String urlKey) {
+    try {
+      return reviewService.getRatingForProducyById(urlKey);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "REVIEW NOT FOUND", e);
+    }
+  }
+
   @PutMapping("api/review/{rid}")
   public Review updateReview(@PathVariable("rid") Integer rid, @RequestBody Review newReview) {
     return reviewService.updateReview(rid, newReview);
@@ -73,6 +82,6 @@ public class ReviewController {
 
   @DeleteMapping("api/reivew/{rid}")
   public void deleteReview(@PathVariable("rid") Integer rid) {
-     reviewService.deleteReview(rid);
+    reviewService.deleteReview(rid);
   }
 }

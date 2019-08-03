@@ -2,6 +2,8 @@ package com.example.wbdvsu19projectserver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
+import java.util.Map;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author Xuan Kong
@@ -53,15 +56,10 @@ public class Product {
   private Editor editor;
 
 
-  public List<Review> getReviews() {
-    return reviews;
-  }
-
   public Product(String title, String urlKey, String uuid, String description, int marketPrice, int retailPrice, String imageUrl, String styleCode, String colorway, String releaseDate, String brand) {
     this.title = title;
     this.urlKey = urlKey;
     this.uuid = uuid;
-
     this.description = description;
     this.marketPrice = marketPrice;
     this.retailPrice = retailPrice;
@@ -74,7 +72,9 @@ public class Product {
 
   public Product() {
   }
-
+  public List<Review> getReviews() {
+    return reviews;
+  }
   public void setReviews(List<Review> reviews) {
     this.reviews = reviews;
   }
@@ -198,4 +198,7 @@ public class Product {
       user.getCollectedProducts().add(this);
     }
   }
+
+
+
 }
