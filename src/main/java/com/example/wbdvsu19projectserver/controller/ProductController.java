@@ -31,7 +31,6 @@ import java.util.Set;
  */
 @RestController
 @CrossOrigin("*")
-
 public class ProductController {
 
   @Autowired

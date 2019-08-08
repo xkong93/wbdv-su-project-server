@@ -2,6 +2,7 @@ package com.example.wbdvsu19projectserver.sevices;
 
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
+import com.example.wbdvsu19projectserver.repositories.PersonRepository;
 import com.example.wbdvsu19projectserver.repositories.ProductRepository;
 import com.example.wbdvsu19projectserver.repositories.UserRepository;
 
@@ -21,7 +22,8 @@ public class UserService {
 
   @Autowired
   UserRepository userRepository;
-
+  @Autowired
+  PersonRepository personRepository;
   @Autowired
   ProductRepository productRepository;
 
@@ -57,5 +59,10 @@ public class UserService {
     user.deleteProductFromUser(product);
     userRepository.save(user);
     return getAllProductsFromUserById(uid);
+  }
+
+  public User validate(String username, String password) {
+    User user = personRepository.findUserByCredentials(username, password);
+    return user;
   }
 }
