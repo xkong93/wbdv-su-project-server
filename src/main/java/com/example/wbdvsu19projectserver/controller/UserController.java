@@ -1,9 +1,11 @@
 package com.example.wbdvsu19projectserver.controller;
 
-import com.example.wbdvsu19projectserver.models.Portfolio;
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
 import com.example.wbdvsu19projectserver.sevices.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,22 +54,35 @@ public class UserController {
     return null;
   }
 
-  @GetMapping("/api/profile/{uid}")
-  public User getProfile(@PathVariable("uid") Integer uid) {
-    Integer loggedInUserId = (Integer) session.getAttribute("currentUserId");
-    User user = userService.findUserById(uid);
-    System.out.println(session.getId());
-    if (user != null){
-      //this makes sure that signed in user can only view other public users' profiles
-      if (loggedInUserId != null && loggedInUserId == uid){
-        System.out.println("**************");
-        return userService.getPrivateUserProfile(loggedInUserId);
+  @GetMapping("/api/user/{uid}/publicProfile")
+  public User getPublicProfile(@PathVariable("uid") Integer uid) {
+    try {
+      User user = userService.findUserById(uid);
+      if (user != null) {
+        return userService.getPublicUserProfile(uid);
       }
-      return userService.getPublicUserProfile(uid);
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found");
     }
-    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
+    return null;
   }
 
+
+  @GetMapping("/api/user/{uid}/privateProfile")
+  public User getPrivateProfile(@PathVariable("uid") Integer uid) {
+    Integer loggedInUserId;
+    try {
+      loggedInUserId = (Integer) session.getAttribute("currentUserId");
+    } catch (Exception e) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
+    }
+
+    if (loggedInUserId == uid) {
+      return userService.getPrivateUserProfile(loggedInUserId);
+    }else{
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No Access");
+    }
+  }
 
   @PostMapping("/api/user")
   public List<User> createUser(@RequestBody User newUser) {
@@ -103,8 +118,39 @@ public class UserController {
     return userService.getAllProductsFromUserById(uid);
   }
 
-  @GetMapping("/api/user/{username}/portfolio")
-  public Portfolio getPortfolioForUserByUsername(@PathVariable("username") String username){
-    return null;
+  @GetMapping("/api/user/{uid}/portfolio")
+  public ObjectNode getPortfolioForUserByUsername(@PathVariable("uid") Integer uid) {
+    ObjectMapper mapper = new ObjectMapper();
+    ObjectNode root = mapper.createObjectNode();
+    User user = userService.findUserById(uid);
+    Set<Product> collection = user.getCollectedProducts();
+    ArrayNode portfolioItems = root.putArray("PortfolioItems");
+    Integer retailSum = 0;
+    Integer marketSum = 0;
+    Integer gainLossSum = 0;
+    for (Product p : collection) {
+      ObjectNode item = mapper.createObjectNode();
+      item.put("productId", p.getId());
+      item.put("productUrlKey", p.getUrlKey());
+      item.put("productUuid", p.getUuid());
+      item.put("brand", p.getBrand());
+      item.put("name", p.getTitle());
+      item.put("imageUrl", p.getImageUrl());
+      item.put("marketPrice", p.getMarketPrice());
+      item.put("retailPrice", p.getRetailPrice());
+      item.put("releaseDate", p.getReleaseDate());
+      Integer gainLoss = p.getMarketPrice() - p.getRetailPrice();
+      item.put("gainLoss", gainLoss);
+      retailSum += p.getRetailPrice();
+      marketSum += p.getMarketPrice();
+      gainLossSum += gainLoss;
+      portfolioItems.add(item);
+    }
+
+    root.put("totalItem", collection.size());
+    root.put("retailSum", retailSum);
+    root.put("marketSum", marketSum);
+    root.put("gainLossSum", gainLossSum);
+    return root;
   }
 }
