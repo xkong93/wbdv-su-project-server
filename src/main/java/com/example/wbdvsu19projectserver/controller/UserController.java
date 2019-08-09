@@ -6,7 +6,6 @@ import com.example.wbdvsu19projectserver.sevices.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -26,28 +27,43 @@ import javax.servlet.http.HttpSession;
  */
 
 @RestController
-@CrossOrigin("*")
 public class UserController {
 
   @Autowired
   UserService userService;
 
+  @Autowired
+  HttpSession session;
+
   @PostMapping("/api/login")
-  public Integer login(@RequestBody User loginUser, HttpSession session)  {
-    User user = userService.validate(loginUser.getUsername(),loginUser.getPassword());
-    if (user != null){
-      session.setAttribute("currentUser",user);
-      return user.getId();
-    }else if (user == null){
+  public String login(@RequestBody User loginUser, HttpServletResponse response) {
+    User user = userService.validate(loginUser.getUsername(), loginUser.getPassword());
+    if (user != null) {
+      session.setAttribute("currentUser", user.getUsername());
+      Cookie cookie = new Cookie("JSESSIONID", session.getId());
+      cookie.setMaxAge(30 * 60);// set expire time to 30 mins
+      cookie.setPath("/");
+      response.addCookie(cookie);
+      return "user found";
+    } else if (user == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER NOT FOUND");
     }
     return null;
   }
 
-  @PostMapping("/api/loggedin")
-  public User loggedin(HttpSession session) {
+  @GetMapping("/api/profile/{username}")
+  public User getProfile(@PathVariable("username") String username) {
+    String loggedInUsername = (String) session.getAttribute("currentUser");
+    User user = userService.findUserByUsername(username);
     System.out.println(session.getId());
-    return (User) session.getAttribute("currentUser");
+    if (user != null){
+      if (loggedInUsername != null){
+        System.out.println("**************");
+        return userService.getPrivateUserProfile(username);
+      }
+      return userService.getPublicUserProfile(username);
+    }
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
   }
 
 

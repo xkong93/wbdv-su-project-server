@@ -1,6 +1,7 @@
 package com.example.wbdvsu19projectserver.sevices;
 
 import com.example.wbdvsu19projectserver.models.Product;
+import com.example.wbdvsu19projectserver.models.Review;
 import com.example.wbdvsu19projectserver.models.User;
 import com.example.wbdvsu19projectserver.repositories.PersonRepository;
 import com.example.wbdvsu19projectserver.repositories.ProductRepository;
@@ -22,8 +23,10 @@ public class UserService {
 
   @Autowired
   UserRepository userRepository;
+
   @Autowired
   PersonRepository personRepository;
+
   @Autowired
   ProductRepository productRepository;
 
@@ -48,6 +51,11 @@ public class UserService {
     return user;
   }
 
+  public User findUserByUsername(String username) {
+    User user = userRepository.findUserByUsername(username);
+    return user;
+  }
+
   public Set<Product> getAllProductsFromUserById(Integer uid) {
     User user = userRepository.findById(uid).get();
     return user.getCollectedProducts();
@@ -63,6 +71,31 @@ public class UserService {
 
   public User validate(String username, String password) {
     User user = personRepository.findUserByCredentials(username, password);
+    return user;
+  }
+
+  public User getPublicUserProfile(String username) {
+    List<Object[]> list = userRepository.findPublicUserProfileByUsername(username);
+    User user = new User();
+    for (Object[] object : list) {
+      user.setUsername((String) object[0]);
+      user.setFirstName((String) object[1]);
+      user.setLastName((String) object[2]);
+    }
+    return user;
+  }
+
+
+  public User getPrivateUserProfile(String username) {
+    List<Object[]> list = userRepository.findPrivateUserProfileByUsername(username);
+    User user = new User();
+    for (Object[] object : list) {
+      user.setUsername((String) object[0]);
+      user.setFirstName((String) object[1]);
+      user.setLastName((String) object[2]);
+      user.setPassword((String) object[3]);
+      user.setEmail((String) object[4]);
+    }
     return user;
   }
 }

@@ -30,7 +30,6 @@ import java.util.Set;
  * @Date 2019-07-23.
  */
 @RestController
-@CrossOrigin("*")
 public class ProductController {
 
   @Autowired

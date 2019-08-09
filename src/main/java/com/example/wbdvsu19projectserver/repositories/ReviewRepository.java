@@ -5,11 +5,13 @@ import com.example.wbdvsu19projectserver.models.Review;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Xuan Kong
  * @Date 2019-07-27.
  */
+@Repository
 public interface ReviewRepository extends CrudRepository<Review,Integer> {
 
 
