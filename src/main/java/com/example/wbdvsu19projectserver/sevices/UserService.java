@@ -88,7 +88,7 @@ public class UserService {
 
 
   public User getPrivateUserProfile(Integer uid) {
-    List<Object[]> list = userRepository.findPublicUserProfileByUserId(uid);
+    List<Object[]> list = userRepository.findPrivateUserProfileByUserId(uid);
     User user = new User();
     for (Object[] object : list) {
       user.setUsername((String) object[0]);

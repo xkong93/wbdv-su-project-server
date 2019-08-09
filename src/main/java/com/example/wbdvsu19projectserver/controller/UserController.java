@@ -58,7 +58,8 @@ public class UserController {
     User user = userService.findUserById(uid);
     System.out.println(session.getId());
     if (user != null){
-      if (loggedInUserId != null){
+      //this makes sure that signed in user can only view other public users' profiles
+      if (loggedInUserId != null && loggedInUserId == uid){
         System.out.println("**************");
         return userService.getPrivateUserProfile(loggedInUserId);
       }
