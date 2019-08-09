@@ -42,7 +42,6 @@ public class Product {
   private String releaseDate;
   private String brand;
 
-
   @OneToMany(mappedBy = "product")
   private List<Review> reviews;
 
@@ -191,6 +190,7 @@ public class Product {
   public void setTitle(String title) {
     this.title = title;
   }
+
 
   public void addUserToProduct(User user) {
     this.collectedUsers.add(user);

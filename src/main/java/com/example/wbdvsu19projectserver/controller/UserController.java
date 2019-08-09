@@ -1,5 +1,6 @@
 package com.example.wbdvsu19projectserver.controller;
 
+import com.example.wbdvsu19projectserver.models.Portfolio;
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
 import com.example.wbdvsu19projectserver.sevices.UserService;
@@ -39,7 +40,7 @@ public class UserController {
   public String login(@RequestBody User loginUser, HttpServletResponse response) {
     User user = userService.validate(loginUser.getUsername(), loginUser.getPassword());
     if (user != null) {
-      session.setAttribute("currentUser", user.getUsername());
+      session.setAttribute("currentUserId", user.getId());
       Cookie cookie = new Cookie("JSESSIONID", session.getId());
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
@@ -51,17 +52,17 @@ public class UserController {
     return null;
   }
 
-  @GetMapping("/api/profile/{username}")
-  public User getProfile(@PathVariable("username") String username) {
-    String loggedInUsername = (String) session.getAttribute("currentUser");
-    User user = userService.findUserByUsername(username);
+  @GetMapping("/api/profile/{uid}")
+  public User getProfile(@PathVariable("uid") Integer uid) {
+    Integer loggedInUserId = (Integer) session.getAttribute("currentUserId");
+    User user = userService.findUserById(uid);
     System.out.println(session.getId());
     if (user != null){
-      if (loggedInUsername != null){
+      if (loggedInUserId != null){
         System.out.println("**************");
-        return userService.getPrivateUserProfile(username);
+        return userService.getPrivateUserProfile(loggedInUserId);
       }
-      return userService.getPublicUserProfile(username);
+      return userService.getPublicUserProfile(uid);
     }
     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
   }
@@ -99,5 +100,10 @@ public class UserController {
   public Set<Product> DeleteProductFromUserById(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid) {
     userService.deleteProductFromUser(uid, pid);
     return userService.getAllProductsFromUserById(uid);
+  }
+
+  @GetMapping("/api/user/{username}/portfolio")
+  public Portfolio getPortfolioForUserByUsername(@PathVariable("username") String username){
+    return null;
   }
 }

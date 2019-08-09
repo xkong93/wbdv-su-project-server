@@ -74,20 +74,21 @@ public class UserService {
     return user;
   }
 
-  public User getPublicUserProfile(String username) {
-    List<Object[]> list = userRepository.findPublicUserProfileByUsername(username);
+  public User getPublicUserProfile(Integer uid) {
+    List<Object[]> list = userRepository.findPrivateUserProfileByUserId(uid);
     User user = new User();
     for (Object[] object : list) {
       user.setUsername((String) object[0]);
       user.setFirstName((String) object[1]);
       user.setLastName((String) object[2]);
+      //如果加了review 和collectedProducts 会报错 type 转型？？
     }
     return user;
   }
 
 
-  public User getPrivateUserProfile(String username) {
-    List<Object[]> list = userRepository.findPrivateUserProfileByUsername(username);
+  public User getPrivateUserProfile(Integer uid) {
+    List<Object[]> list = userRepository.findPublicUserProfileByUserId(uid);
     User user = new User();
     for (Object[] object : list) {
       user.setUsername((String) object[0]);
