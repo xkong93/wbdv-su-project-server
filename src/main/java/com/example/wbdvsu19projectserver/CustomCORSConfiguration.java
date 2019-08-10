@@ -15,7 +15,7 @@ import org.springframework.web.filter.CorsFilter;
 public class CustomCORSConfiguration {
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOrigin("https://calm-taiga-99221.herokuapp.com");
+    corsConfiguration.addAllowedOrigin("*");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.addExposedHeader("Content-Type");
@@ -24,7 +24,7 @@ public class CustomCORSConfiguration {
     corsConfiguration.addExposedHeader("Access-Control-Request-Method");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
-//    corsConfiguration.addExposedHeader("Set-Cookie");
+    corsConfiguration.addExposedHeader("Set-Cookie");
 
     corsConfiguration.setAllowCredentials(true); //kep point!! required
     UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
