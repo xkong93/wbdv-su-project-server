@@ -15,7 +15,7 @@ import org.springframework.web.filter.CorsFilter;
 public class CustomCORSConfiguration {
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOrigin("*");
+    corsConfiguration.addAllowedOrigin("https://calm-taiga-99221.herokuapp.com");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
 //    corsConfiguration.addExposedHeader("Content-Type");
