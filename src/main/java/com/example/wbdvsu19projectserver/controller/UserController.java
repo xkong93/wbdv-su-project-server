@@ -119,12 +119,12 @@ public class UserController {
   }
 
   @GetMapping("/api/user/{uid}/portfolio")
-  public ObjectNode getPortfolioForUserByUsername(@PathVariable("uid") Integer uid) {
+  public ObjectNode getPortfolioForUserByUserId(@PathVariable("uid") Integer uid) {
     ObjectMapper mapper = new ObjectMapper();
     ObjectNode root = mapper.createObjectNode();
     User user = userService.findUserById(uid);
     Set<Product> collection = user.getCollectedProducts();
-    ArrayNode portfolioItems = root.putArray("PortfolioItems");
+    ArrayNode portfolioItems = root.putArray("portfolioItems");
     Integer retailSum = 0;
     Integer marketSum = 0;
     Integer gainLossSum = 0;
@@ -146,7 +146,6 @@ public class UserController {
       gainLossSum += gainLoss;
       portfolioItems.add(item);
     }
-
     root.put("totalItem", collection.size());
     root.put("retailSum", retailSum);
     root.put("marketSum", marketSum);
