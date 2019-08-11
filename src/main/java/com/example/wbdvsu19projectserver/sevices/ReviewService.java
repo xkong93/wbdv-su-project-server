@@ -27,7 +27,7 @@ public class ReviewService {
   @Autowired
   ProductRepository productRepository;
 
-  public Review createReviewForProuctByUser(Review review, Integer pid, Integer uid) {
+  public Review createReviewForProductByUser(Review review, Integer pid, Integer uid) {
     User user = userRepository.findById(uid).get();
     Product product = productRepository.findById(pid).get();
     review.setUser(user);
