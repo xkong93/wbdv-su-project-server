@@ -86,7 +86,6 @@ public class UserService {
     return user;
   }
 
-
   public User getPrivateUserProfile(Integer uid) {
     List<Object[]> list = userRepository.findPrivateUserProfileByUserId(uid);
     User user = new User();
