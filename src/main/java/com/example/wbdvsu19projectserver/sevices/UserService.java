@@ -30,9 +30,9 @@ public class UserService {
   @Autowired
   ProductRepository productRepository;
 
-  public List<User> createUser(User newUser) {
+  public User createUser(User newUser) {
     userRepository.save(newUser);
-    return findAllUsers();
+    return newUser;
   }
 
   public void addProductToUser(Integer uid, Integer pid) {

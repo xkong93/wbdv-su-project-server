@@ -18,6 +18,7 @@ public class CustomCORSConfiguration {
     corsConfiguration.setAllowCredentials(true); //kep point!! required
 
     corsConfiguration.addAllowedOrigin("https://calm-taiga-99221.herokuapp.com");
+    corsConfiguration.addAllowedOrigin("http://localhost:3000");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
     corsConfiguration.addExposedHeader("Content-Type");

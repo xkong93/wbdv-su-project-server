@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -37,9 +38,24 @@ public class UserController {
 
   @Autowired
   HttpSession session;
+  
+  @PostMapping("/api/register")
+	public User register(
+	        @RequestBody User newUser,
+	        HttpServletResponse response) {
+	    newUser = userService.createUser(newUser);
+	    System.out.println(newUser.getId());
+	    session.setAttribute("currentUserId", newUser.getId());
+	    System.out.println(session);
+	    Cookie cookie = new Cookie("JSESSIONID", session.getId());
+	    cookie.setMaxAge(30 * 60);// set expire time to 30 mins
+	    cookie.setPath("/");
+	    response.addCookie(cookie);
+	    return newUser;
+	}
 
   @PostMapping("/api/login")
-  public String login(@RequestBody User loginUser, HttpServletResponse response) {
+  public User login(@RequestBody User loginUser, HttpServletResponse response) {
     User user = userService.validate(loginUser.getUsername(), loginUser.getPassword());
     if (user != null) {
       session.setAttribute("currentUserId", user.getId());
@@ -47,12 +63,42 @@ public class UserController {
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
       response.addCookie(cookie);
-      return "user found";
+      return user;
     } else if (user == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER NOT FOUND");
     }
     return null;
   }
+  
+  @GetMapping("/api/logout")
+  public boolean logout(HttpServletResponse response) {
+      session.setAttribute("currentUserId", null);
+      Cookie cookie = new Cookie("JSESSIONID", session.getId());
+      cookie.setPath("/");
+      response.addCookie(cookie);
+      return false;
+  }
+  
+  @GetMapping("/api/user/validate")
+  public boolean Validate()
+  {
+	  Integer loggedInUserId;
+	  try {
+	  loggedInUserId = (Integer) session.getAttribute("currentUserId");
+	    System.out.println("session user ID" +loggedInUserId);
+	  } catch (Exception e) {
+	      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
+	    }
+	  if (loggedInUserId == null)
+		  {return false;}
+	  else {
+	  if (loggedInUserId>0) {
+	      return true;
+	    }else{
+	    	return false;}}
+  }
+
+  
 
   @GetMapping("/api/user/{uid}/publicProfile")
   public User getPublicProfile(@PathVariable("uid") Integer uid) {
@@ -85,12 +131,12 @@ public class UserController {
   }
 
   @PostMapping("/api/user")
-  public List<User> createUser(@RequestBody User newUser) {
+  public User createUser(@RequestBody User newUser) {
     return userService.createUser(newUser);
   }
 
 
-  @GetMapping("api/user")
+  @GetMapping("/api/user")
   public List<User> findAllUsers() {
     return userService.findAllUsers();
   }
