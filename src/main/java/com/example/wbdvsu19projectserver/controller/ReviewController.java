@@ -30,12 +30,10 @@ public class ReviewController {
 
 
   @PostMapping("/api/user/{uid}/product/{pid}/review")
-  public Review createReviewForProductByUser(@PathVariable("pid") Integer pid,
+  public Review createReviewForProuctByUser(@PathVariable("pid") Integer pid,
                                             @PathVariable("uid") Integer uid,
                                             @RequestBody Review review) {
-
     return reviewService.createReviewForProuctByUser(review, pid, uid);
-
   }
 
   @GetMapping("/api/review")
