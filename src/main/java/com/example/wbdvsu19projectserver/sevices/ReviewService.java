@@ -87,6 +87,7 @@ public class ReviewService {
     }};
     for (Review review : reviews) {
       curWidthSum += review.getWidth();
+      System.out.println(review.getWidth());
       curComfortSum += review.getComfort();
       curSizeSum += review.getSize();
       curQualitySum += review.getQuality();
@@ -114,6 +115,8 @@ public class ReviewService {
     rating.setPercentageIsRecommend(curIsRecommendSum / reviewCount);
     rating.setReviewCount(reviewCount);
     rating.setRatingDistribution(ratingDistribution);
+    System.out.println(reviewCount);
+    System.out.println(rating.getWidth());
     return rating;
   }
 
