@@ -9,16 +9,16 @@ import java.util.Map;
  */
 public class Rating {
 
-  private double averageWidth;
+  private double Width;
 
-  private double averageComfort;
+  private double Comfort;
 
-  private double averageSize;
+  private double Size;
 
 
-  private double averageQuality;
+  private double Quality;
 
-  private double averageOverall;
+  private double Overall;
 
   private Integer reviewCount;
 
@@ -30,44 +30,44 @@ public class Rating {
   public Rating (){
 
   }
-  public double getAverageWidth() {
-    return averageWidth;
+  public double getWidth() {
+    return Width;
   }
 
-  public void setAverageWidth(double averageWidth) {
-    this.averageWidth = averageWidth;
+  public void setWidth(double Width) {
+    this.Width = Width;
   }
 
-  public double getAverageComfort() {
-    return averageComfort;
+  public double getComfort() {
+    return Comfort;
   }
 
-  public void setAverageComfort(double averageComfort) {
-    this.averageComfort = averageComfort;
+  public void setComfort(double Comfort) {
+    this.Comfort = Comfort;
   }
 
-  public double getAverageSize() {
-    return averageSize;
+  public double getSize() {
+    return Size;
   }
 
-  public void setAverageSize(double averageSize) {
-    this.averageSize = averageSize;
+  public void setSize(double Size) {
+    this.Size = Size;
   }
 
-  public double getAverageQuality() {
-    return averageQuality;
+  public double getQuality() {
+    return Quality;
   }
 
-  public void setAverageQuality(double averageQuality) {
-    this.averageQuality = averageQuality;
+  public void setQuality(double Quality) {
+    this.Quality = Quality;
   }
 
-  public double getAverageOverall() {
-    return averageOverall;
+  public double getOverall() {
+    return Overall;
   }
 
-  public void setAverageOverall(double averageOverall) {
-    this.averageOverall = averageOverall;
+  public void setOverall(double Overall) {
+    this.Overall = Overall;
   }
 
   public Integer getReviewCount() {

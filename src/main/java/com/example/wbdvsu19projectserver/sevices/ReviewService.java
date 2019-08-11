@@ -59,10 +59,11 @@ public class ReviewService {
     return reviews;
   }
 
+
   public List<Review> getAllReviewsForProductById(Integer pid) {
     Product product = productRepository.findById(pid).get();
-    List<Review> reviews = product.getReviews();
-    return reviews;
+
+    return product.getReviews();
   }
 
   public Rating getRatingForProducyById(String urlKey) {
@@ -105,11 +106,11 @@ public class ReviewService {
       }
     }
     DecimalFormat df=new DecimalFormat(".##");
-    rating.setAverageWidth(Double.valueOf(df.format(curWidthSum / reviewCount)));
-    rating.setAverageComfort(Double.valueOf(df.format(curComfortSum / reviewCount)));
-    rating.setAverageSize(Double.valueOf(df.format(curSizeSum / reviewCount)));
-    rating.setAverageQuality(Double.valueOf(df.format(curQualitySum / reviewCount)));
-    rating.setAverageOverall(Double.valueOf(df.format(curOverallSum / reviewCount)));
+    rating.setWidth(Double.valueOf(df.format(curWidthSum / reviewCount)));
+    rating.setComfort(Double.valueOf(df.format(curComfortSum / reviewCount)));
+    rating.setSize(Double.valueOf(df.format(curSizeSum / reviewCount)));
+    rating.setQuality(Double.valueOf(df.format(curQualitySum / reviewCount)));
+    rating.setOverall(Double.valueOf(df.format(curOverallSum / reviewCount)));
     rating.setPercentageIsRecommend(curIsRecommendSum / reviewCount);
     rating.setReviewCount(reviewCount);
     rating.setRatingDistribution(ratingDistribution);
