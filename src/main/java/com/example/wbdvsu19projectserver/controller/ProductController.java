@@ -14,10 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -31,6 +28,7 @@ import java.util.Set;
  * @Date 2019-07-23.
  */
 @RestController
+@CrossOrigin("*")
 public class ProductController {
 
   @Autowired
@@ -142,4 +140,13 @@ public class ProductController {
   }
 
 
+  @GetMapping("/api/product/getId/{urlKey}")
+  public Product findProductByUrlKey(@PathVariable("urlKey") String urlKey){
+    return productService.findProductByUrlkey(urlKey);
+  }
+
+  @DeleteMapping("api/delete/product/{pid}")
+  public  void deleteProduct(@PathVariable("pid") Integer pid){
+    productService.deleteProduct(pid);
+  }
 }
