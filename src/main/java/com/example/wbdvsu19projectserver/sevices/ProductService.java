@@ -47,6 +47,8 @@ public class ProductService {
     Product product = productRepository.findById(pid).get();
     return product.getCollectedUsers();
   }
-
+  public Product findProductByUrlkey(String urlKey){
+    return productRepository.findProductByUrlKey(urlKey);
+  }
 
 }

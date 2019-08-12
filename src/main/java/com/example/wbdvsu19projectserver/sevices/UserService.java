@@ -35,12 +35,19 @@ public class UserService {
     return findAllUsers();
   }
 
-  public void addProductToUser(Integer uid, Integer pid) {
+  public void addProductToUser(Integer uid, String urlKey) {
+
     User user = userRepository.findById(uid).get();
-    Product product = productRepository.findById(pid).get();
+    Product product = productRepository.findProductByUrlKey(urlKey);
     user.addProductToUser(product);
     userRepository.save(user);
   }
+//  public void addProductToUser(Integer uid, Integer pid) {
+//    User user = userRepository.findById(uid).get();
+//    Product product = productRepository.findById(pid).get();
+//    user.addProductToUser(product);
+//    userRepository.save(user);
+//  }
 
   public List<User> findAllUsers() {
     return (List<User>) userRepository.findAll();

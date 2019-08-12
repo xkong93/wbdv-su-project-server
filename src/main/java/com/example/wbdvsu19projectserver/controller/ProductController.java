@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,9 +37,19 @@ public class ProductController {
   ProductService productService;
 
 
-  @GetMapping("/api/product/{pid}")
-  public Product findProductById(@PathVariable("pid") Integer pid) {
-    return productService.findProductById(pid);
+//  @GetMapping("/api/product/{pid}")
+//  public Product findProductById(@PathVariable("pid") Integer pid) {
+//    return productService.findProductById(pid);
+//  }
+
+   @GetMapping("/api/product/{urlKey}")
+  public Product findProductById(@PathVariable("urlKey") String urlKey) {
+
+    Product p =  productService.findProductByUrlkey(urlKey);
+    if (p == null){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product Not Found");
+    }
+    return p;
   }
 
   /*

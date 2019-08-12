@@ -2,6 +2,7 @@ package com.example.wbdvsu19projectserver.controller;
 
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
+import com.example.wbdvsu19projectserver.sevices.ProductService;
 import com.example.wbdvsu19projectserver.sevices.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -31,10 +32,14 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 public class UserController {
+  @Autowired
+  ProductController productController;
 
   @Autowired
   UserService userService;
 
+  @Autowired
+  ProductService productService;
   @Autowired
   HttpSession session;
 
@@ -100,13 +105,33 @@ public class UserController {
     return userService.findUserById(uid);
   }
 
-  @PostMapping("/api/user/{uid}/product/{pid}")
+  @GetMapping("/api/user/{uid}/product/{urlKey}")
   public Set<Product> addProductToUser(
-          @PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid) {
-    userService.addProductToUser(uid, pid);
+          @PathVariable("uid") Integer uid, @PathVariable("urlKey") String urlKey) {
+
+    User u = userService.findUserById(uid);
+    Product p = productService.findProductByUrlkey(urlKey);
+    if (u.getCollectedProducts().contains(p)){
+      throw new ResponseStatusException(HttpStatus.CONFLICT, "product already exists");
+    }
+    userService.addProductToUser(uid, urlKey);
     return getAllProductsFromUserById(uid);
   }
 
+  //BUGGY  need to fix !!
+//    @PostMapping("/api/user/{uid}/product/{urlKey}")
+//  public Set<Product> addProductToUser(
+//          @PathVariable("uid") Integer uid, @PathVariable("urlKey") String urlKey) {
+//    Product p = productService.findProductByUrlkey(urlKey);
+//
+//    if (p == null){
+//      productController.createProduct(urlKey);
+//    }
+//    System.out.println("controller" +urlKey);
+//    userService.addProductToUser2(uid, urlKey);
+//
+//    return getAllProductsFromUserById(uid);
+//  }
   @PostMapping("/api/user/{uid}")
   public User updateUserById(
           @RequestBody User newUser,
