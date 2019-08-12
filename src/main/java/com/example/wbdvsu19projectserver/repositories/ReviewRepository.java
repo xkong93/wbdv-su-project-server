@@ -20,4 +20,5 @@ public interface ReviewRepository extends CrudRepository<Review,Integer> {
   public Review getReviewsByUserForProduct(@Param("uid") Integer uid, @Param("pid") Integer pid);
 
 
+
 }

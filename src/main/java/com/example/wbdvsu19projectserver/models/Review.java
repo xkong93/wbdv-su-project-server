@@ -28,7 +28,7 @@ public class Review {
   private boolean isRecommend;
   private String description;
   private String imageUrl;
-
+  private String username;
   @ManyToOne
   @JsonIgnore
   private User user;
@@ -46,6 +46,7 @@ public class Review {
     this.isRecommend = isRecommend;
     this.description = description;
     this.imageUrl = imageUrl;
+
   }
   public Review(){
   }
@@ -101,7 +102,7 @@ public class Review {
     return isRecommend;
   }
 
-  public void setRecommend(boolean recommend) {
+  public void setIsRecommend(boolean recommend) {
     isRecommend = recommend;
   }
 
@@ -137,5 +138,11 @@ public class Review {
     this.product = product;
   }
 
+  public String getUsername() {
+    return username;
+  }
 
+  public void setUsername(String username) {
+    this.username = username;
+  }
 }

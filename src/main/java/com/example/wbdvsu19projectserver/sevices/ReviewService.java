@@ -122,6 +122,10 @@ public class ReviewService {
   public List<Review> getAllReviewsForProductByUrlKey(String urlKey) {
     Product product = productRepository.findProductByUrlKey(urlKey);
     List<Review> reviews = product.getReviews();
+    for (Review review : reviews){
+      String username = review.getUser().getUsername();
+      review.setUsername(username);
+    }
     return reviews;
   }
 
@@ -130,7 +134,7 @@ public class ReviewService {
     review.setComfort(newReview.getComfort());
     review.setDescription(newReview.getDescription());
     review.setOverall(newReview.getOverall());
-    review.setRecommend(newReview.getIsRecommend());
+    review.setIsRecommend(newReview.getIsRecommend());
     review.setSize(newReview.getSize());
     review.setWidth(newReview.getWidth());
     review.setQuality(newReview.getQuality());
