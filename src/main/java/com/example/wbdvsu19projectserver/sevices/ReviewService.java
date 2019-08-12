@@ -124,7 +124,9 @@ public class ReviewService {
     List<Review> reviews = product.getReviews();
     for (Review review : reviews){
       String username = review.getUser().getUsername();
+      Integer uid = review.getUser().getId();
       review.setUsername(username);
+      review.setUid(uid);
     }
     return reviews;
   }

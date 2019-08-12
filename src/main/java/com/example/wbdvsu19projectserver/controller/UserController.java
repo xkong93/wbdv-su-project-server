@@ -1,5 +1,6 @@
 package com.example.wbdvsu19projectserver.controller;
 
+import com.example.wbdvsu19projectserver.models.Person;
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
 import com.example.wbdvsu19projectserver.sevices.ProductService;
@@ -44,16 +45,21 @@ public class UserController {
   HttpSession session;
 
   @PostMapping("/api/login")
-  public Integer login(@RequestBody User loginUser, HttpServletResponse response) {
-    User user = userService.validate(loginUser.getUsername(), loginUser.getPassword());
-    if (user != null) {
-      session.setAttribute("currentUserId", user.getId());
+  public ObjectNode login(@RequestBody Person loginUser, HttpServletResponse response) {
+    Person person = userService.validate(loginUser.getUsername(), loginUser.getPassword());
+    if (person != null) {
+      session.setAttribute("currentUserId", person.getId());
       Cookie cookie = new Cookie("JSESSIONID", session.getId());
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
       response.addCookie(cookie);
-      return user.getId();
-    } else if (user == null) {
+      ObjectMapper mapper = new ObjectMapper();
+      ObjectNode root = mapper.createObjectNode();
+      root.put("dtype",person.getDtype());
+      root.put("uid",person.getId());
+      System.out.println(root);
+      return root;
+    } else if (person == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER NOT FOUND");
     }
     return null;
@@ -111,7 +117,7 @@ public class UserController {
 
     User u = userService.findUserById(uid);
     Product p = productService.findProductByUrlkey(urlKey);
-    if (u.getCollectedProducts().contains(p)){
+    if (u.getCollectedProducts().contains(p)) {
       throw new ResponseStatusException(HttpStatus.CONFLICT, "product already exists");
     }
     userService.addProductToUser(uid, urlKey);

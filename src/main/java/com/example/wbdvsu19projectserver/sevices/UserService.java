@@ -1,5 +1,6 @@
 package com.example.wbdvsu19projectserver.sevices;
 
+import com.example.wbdvsu19projectserver.models.Person;
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.Review;
 import com.example.wbdvsu19projectserver.models.User;
@@ -76,9 +77,9 @@ public class UserService {
     return getAllProductsFromUserById(uid);
   }
 
-  public User validate(String username, String password) {
-    User user = personRepository.findUserByCredentials(username, password);
-    return user;
+  public Person validate(String username, String password) {
+    Person person = personRepository.findUserByCredentials(username, password);
+    return person;
   }
 
   public User getPublicUserProfile(Integer uid) {

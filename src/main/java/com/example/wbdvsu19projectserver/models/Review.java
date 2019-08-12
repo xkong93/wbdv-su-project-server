@@ -2,6 +2,7 @@ package com.example.wbdvsu19projectserver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,8 @@ public class Review {
   private String description;
   private String imageUrl;
   private String username;
+  @Column(insertable = false, updatable = false)
+  private Integer uid;
   @ManyToOne
   @JsonIgnore
   private User user;
@@ -48,8 +51,10 @@ public class Review {
     this.imageUrl = imageUrl;
 
   }
-  public Review(){
+
+  public Review() {
   }
+
   public Integer getId() {
     return id;
   }
@@ -144,5 +149,13 @@ public class Review {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  public Integer getUid() {
+    return uid;
+  }
+
+  public void setUid(Integer uid) {
+    this.uid = uid;
   }
 }
