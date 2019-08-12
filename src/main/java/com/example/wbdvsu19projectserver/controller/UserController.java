@@ -44,7 +44,7 @@ public class UserController {
   HttpSession session;
 
   @PostMapping("/api/login")
-  public String login(@RequestBody User loginUser, HttpServletResponse response) {
+  public Integer login(@RequestBody User loginUser, HttpServletResponse response) {
     User user = userService.validate(loginUser.getUsername(), loginUser.getPassword());
     if (user != null) {
       session.setAttribute("currentUserId", user.getId());
@@ -52,7 +52,7 @@ public class UserController {
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
       response.addCookie(cookie);
-      return "user found";
+      return user.getId();
     } else if (user == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER NOT FOUND");
     }
