@@ -79,7 +79,7 @@ public class UserController {
 
     if (loggedInUserId == uid) {
       return userService.getPrivateUserProfile(loggedInUserId);
-    }else{
+    } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No Access");
     }
   }
@@ -105,6 +105,13 @@ public class UserController {
           @PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid) {
     userService.addProductToUser(uid, pid);
     return getAllProductsFromUserById(uid);
+  }
+
+  @PostMapping("/api/user/{uid}")
+  public User updateUserById(
+          @RequestBody User newUser,
+          @PathVariable("uid") Integer uid) {
+    return userService.updateUserById(uid, newUser);
   }
 
   @GetMapping("/api/user/{uid}/product")

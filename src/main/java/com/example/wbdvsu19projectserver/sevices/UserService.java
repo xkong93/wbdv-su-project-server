@@ -98,4 +98,12 @@ public class UserService {
     }
     return user;
   }
+
+  public User updateUserById(Integer uid,User newUser){
+    User user = userRepository.findById(uid).get();
+    user.setPassword(newUser.getPassword());
+    user.setLastName(newUser.getLastName());
+    user.setFirstName(newUser.getFirstName());
+    return userRepository.save(user);
+  }
 }
