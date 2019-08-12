@@ -145,7 +145,7 @@ public class ProductController {
     return productService.findProductByUrlkey(urlKey);
   }
 
-  @DeleteMapping("api/delete/product/{pid}")
+  @DeleteMapping("api/product/{pid}")
   public  void deleteProduct(@PathVariable("pid") Integer pid){
     productService.deleteProduct(pid);
   }

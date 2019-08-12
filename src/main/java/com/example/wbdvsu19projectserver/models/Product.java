@@ -45,7 +45,7 @@ public class Product {
   private String releaseDate;
   private String brand;
 
-  @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "product")
   private List<Review> reviews;
 
   @ManyToMany(mappedBy = "collectedProducts")

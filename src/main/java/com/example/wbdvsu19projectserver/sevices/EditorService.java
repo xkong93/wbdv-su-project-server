@@ -8,6 +8,7 @@ import com.example.wbdvsu19projectserver.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -46,4 +47,9 @@ public class EditorService {
     return  e.getFeaturedProducts();
 
   }
+
+  public List<Editor> findAllEditors(){
+    return (List<Editor>)editorRepository.findAll();
+  }
+
 }

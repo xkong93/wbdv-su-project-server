@@ -36,7 +36,10 @@ public class EditiorController {
           @RequestBody Editor editor) {
 
     if (code.equals(this.code)) {
-      editor.setId(1);
+      int size = productService.findAllProducts().size();
+      if (size > 1) {
+        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No More Than One Editor");
+      }
       return editorService.createEditor(editor);
     } else if (!code.equals(this.code)) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "WRONG ACCESS CODE");
@@ -59,7 +62,7 @@ public class EditiorController {
   }
 
   @GetMapping("/api/editor/{eid}/product")
-  public Set<Product> getFeaturedProductsforEditorById(@PathVariable("eid") Integer eid){
+  public Set<Product> getFeaturedProductsforEditorById(@PathVariable("eid") Integer eid) {
     Editor e = editorService.findEditorById(eid);
     return e.getFeaturedProducts();
   }
