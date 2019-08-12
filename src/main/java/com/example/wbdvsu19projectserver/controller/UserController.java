@@ -139,6 +139,11 @@ public class UserController {
     return userService.updateUserById(uid, newUser);
   }
 
+  @PostMapping("/api/username/{username}")
+  public User findUserByUsername(@PathVariable("username") String u){
+    return userService.findUserByUsername(u);
+  }
+  
   @GetMapping("/api/user/{uid}/product")
   public Set<Product> getAllProductsFromUserById(@PathVariable("uid") Integer uid) {
     return userService.getAllProductsFromUserById(uid);
