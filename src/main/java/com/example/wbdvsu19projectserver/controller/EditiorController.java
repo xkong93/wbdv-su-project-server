@@ -36,6 +36,7 @@ public class EditiorController {
           @RequestBody Editor editor) {
 
     if (code.equals(this.code)) {
+      editor.setId(1);
       return editorService.createEditor(editor);
     } else if (!code.equals(this.code)) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "WRONG ACCESS CODE");
