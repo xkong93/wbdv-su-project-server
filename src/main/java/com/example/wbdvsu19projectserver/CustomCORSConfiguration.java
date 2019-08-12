@@ -25,7 +25,7 @@ public class CustomCORSConfiguration {
     corsConfiguration.addExposedHeader("Access-Control-Request-Method");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
-    corsConfiguration.addExposedHeader("Set-Cookie");
+//    corsConfiguration.addExposedHeader("Set-Cookie");
 
     UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
     corsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);

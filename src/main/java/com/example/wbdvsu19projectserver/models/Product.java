@@ -1,9 +1,12 @@
 package com.example.wbdvsu19projectserver.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +45,7 @@ public class Product {
   private String releaseDate;
   private String brand;
 
-  @OneToMany(mappedBy = "product")
+  @OneToMany(mappedBy = "product",cascade = CascadeType.REMOVE)
   private List<Review> reviews;
 
   @ManyToMany(mappedBy = "collectedProducts")

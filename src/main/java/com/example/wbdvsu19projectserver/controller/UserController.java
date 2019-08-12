@@ -55,8 +55,8 @@ public class UserController {
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode root = mapper.createObjectNode();
-      root.put("dtype",person.getDtype());
-      root.put("uid",person.getId());
+      root.put("dtype", person.getDtype());
+      root.put("uid", person.getId());
       System.out.println(root);
       return root;
     } else if (person == null) {
@@ -88,7 +88,7 @@ public class UserController {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Session Not Found");
     }
 
-    if (loggedInUserId == uid) {
+    if (loggedInUserId.equals(uid)) {
       return userService.getPrivateUserProfile(loggedInUserId);
     } else {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No Access");
