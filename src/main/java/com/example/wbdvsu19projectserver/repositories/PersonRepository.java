@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends CrudRepository<Person, Integer> {
 
   @Query("SELECT person FROM Person person WHERE person.username = :username and person.password = :password")
-  User findUserByCredentials(@Param("username") String username, @Param("password") String password);
+  Person findUserByCredentials(@Param("username") String username, @Param("password") String password);
 
 
 }

@@ -1,7 +1,5 @@
 package com.example.wbdvsu19projectserver.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +26,8 @@ public class Person {
   private String password;
   private String firstName;
   private String lastName;
-
+  @Column(insertable = false, updatable = false)
+  private String dtype;
 
 
   public Person(String username, String email, String password, String firstName, String lastName) {
@@ -38,7 +37,8 @@ public class Person {
     this.firstName = firstName;
     this.lastName = lastName;
   }
-  public Person(){
+
+  public Person() {
   }
 
   public Integer getId() {
@@ -89,6 +89,11 @@ public class Person {
     this.lastName = lastName;
   }
 
+  public String getDtype() {
+    return dtype;
+  }
 
-
+  public void setDtype(String dtype) {
+    this.dtype = dtype;
+  }
 }
