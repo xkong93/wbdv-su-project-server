@@ -1,6 +1,7 @@
 package com.example.wbdvsu19projectserver.models;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,13 +22,13 @@ public class Editor extends Person {
    */
 
   @OneToMany(mappedBy = "editor")
-  private List<Product> featuredProducts;
+  private Set<Product> featuredProducts;
 
-  public List<Product> getFeaturedProducts() {
+  public Set<Product> getFeaturedProducts() {
     return featuredProducts;
   }
 
-  public void setFeaturedProducts(List<Product> featuredProducts) {
+  public void setFeaturedProducts(Set<Product> featuredProducts) {
     this.featuredProducts = featuredProducts;
   }
 }
