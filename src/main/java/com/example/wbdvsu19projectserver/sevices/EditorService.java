@@ -52,4 +52,8 @@ public class EditorService {
     return (List<Editor>)editorRepository.findAll();
   }
 
+public void deleteById(Integer eId) {
+	editorRepository.deleteById(eId);
+}
+
 }

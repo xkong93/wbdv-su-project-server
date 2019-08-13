@@ -7,6 +7,7 @@ import com.example.wbdvsu19projectserver.sevices.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,5 +68,12 @@ public class EditiorController {
     return e.getFeaturedProducts();
   }
 
+  @DeleteMapping("/api/editor/{eId}")
+  public void deleteEditor(@PathVariable("eId")
+  Integer eId)
+  { 
+  	System.out.println("Editor deleting edit: "+ eId);
+  	editorService.deleteById(eId);
+  }
 
 }

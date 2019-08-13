@@ -3,6 +3,7 @@ package com.example.wbdvsu19projectserver.models;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,8 @@ public class Editor extends Person {
    * featureList will display customized products on the homepage by editors
    */
 
-  @OneToMany(mappedBy = "editor")
+  @OneToMany(mappedBy = "editor",
+		  cascade=CascadeType.ALL)
   private Set<Product> featuredProducts;
 
   public Set<Product> getFeaturedProducts() {

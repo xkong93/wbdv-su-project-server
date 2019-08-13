@@ -53,7 +53,9 @@ public class Product {
   private List<User> collectedUsers;
 
 
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST,
+			CascadeType.DETACH,
+			CascadeType.REFRESH})
   @JsonIgnore
   private Editor editor;
 
