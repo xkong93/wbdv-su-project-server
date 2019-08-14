@@ -61,7 +61,7 @@ public class EditiorController {
     editorService.addProductToEditor(eid, urlKey);
   }
 
-  @GetMapping("/api/editor/{eid}/product")
+  @GetMapping("/api/user/{eid}/collection")
   public Set<Product> getFeaturedProductsforEditorById(@PathVariable("eid") Integer eid) {
     Editor e = editorService.findEditorById(eid);
     return e.getFeaturedProducts();
