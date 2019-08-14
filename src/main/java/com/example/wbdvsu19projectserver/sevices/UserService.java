@@ -82,37 +82,37 @@ public class UserService {
     return person;
   }
 
-  public User getPublicUserProfile(Integer uid) {
-    List<Object[]> list = userRepository.findPrivateUserProfileByUserId(uid);
-    User user = new User();
+  public Person getPublicUserProfile(Integer uid) {
+    List<Object[]> list = userRepository.findPrivatePersonProfileByUserId(uid);
+    Person person = new Person();
     for (Object[] object : list) {
-      user.setUsername((String) object[0]);
-      user.setFirstName((String) object[1]);
-      user.setLastName((String) object[2]);
+      person.setUsername((String) object[0]);
+      person.setFirstName((String) object[1]);
+      person.setLastName((String) object[2]);
       //如果加了review 和collectedProducts 会报错 type 转型？？
     }
-    return user;
+    return person;
   }
 
-  public User getPrivateUserProfile(Integer uid) {
-    List<Object[]> list = userRepository.findPrivateUserProfileByUserId(uid);
-    User user = new User();
+  public Person getPrivateUserProfile(Integer uid) {
+    List<Object[]> list = userRepository.findPrivatePersonProfileByUserId(uid);
+    Person person = new Person();
     for (Object[] object : list) {
-      user.setUsername((String) object[0]);
-      user.setFirstName((String) object[1]);
-      user.setLastName((String) object[2]);
-      user.setPassword((String) object[3]);
-      user.setEmail((String) object[4]);
+      person.setUsername((String) object[0]);
+      person.setFirstName((String) object[1]);
+      person.setLastName((String) object[2]);
+      person.setPassword((String) object[3]);
+      person.setEmail((String) object[4]);
     }
-    return user;
+    return person;
   }
 
-  public User updateUserById(Integer uid,User newUser){
-    User user = userRepository.findById(uid).get();
-    user.setPassword(newUser.getPassword());
-    user.setLastName(newUser.getLastName());
-    user.setFirstName(newUser.getFirstName());
-    return userRepository.save(user);
+  public Person updateUserById(Integer uid,Person newUser){
+    Person person = personRepository.findById(uid).get();
+    person.setPassword(newUser.getPassword());
+    person.setLastName(newUser.getLastName());
+    person.setFirstName(newUser.getFirstName());
+    return personRepository.save(person);
   }
 
 

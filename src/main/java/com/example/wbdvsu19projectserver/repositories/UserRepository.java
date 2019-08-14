@@ -17,15 +17,15 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
   //如果加了user.reviews 和 user.collections 会报错
-  @Query("SELECT user.username, user.firstName, user.lastName " +
-          "FROM User user WHERE user.id = :uid ")
-  List<Object[]> findPublicUserProfileByUserId(@Param("uid") Integer uid);
+  @Query("SELECT person.username, person.firstName, person.lastName " +
+          "FROM Person person WHERE person.id = :uid ")
+  List<Object[]> findPublicPersonrProfileByUserId(@Param("uid") Integer uid);
 
-  @Query("SELECT user.username, user.firstName, user.lastName, user.password, user.email " +
-          "FROM User user WHERE user.id = :uid")
-  List<Object[]> findPrivateUserProfileByUserId(@Param("uid") Integer uid);
+  @Query("SELECT perosn.username, perosn.firstName, perosn.lastName, perosn.password, perosn.email " +
+          "FROM Person perosn WHERE perosn.id = :uid")
+  List<Object[]> findPrivatePersonProfileByUserId(@Param("uid") Integer uid);
 
-  @Query("SELECT user FROM User user WHERE user.username = :username")
+  @Query("SELECT person FROM Person person WHERE person.username = :username")
   User findUserByUsername(@Param("username") String username);
 
 }
