@@ -79,7 +79,6 @@ public class EditiorController {
 
   @DeleteMapping("/api/editor/{eid}/product/{urlKey}")
   public void removeProductFromEditorCollection(@PathVariable("urlKey") String urlKey){
-
       editorService.removeProductFromEditorCollection(urlKey);
   }
 
