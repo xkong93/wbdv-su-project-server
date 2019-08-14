@@ -80,7 +80,7 @@ public class ReviewController {
     return reviewService.updateReview(rid, newReview);
   }
 
-  @DeleteMapping("api/reivew/{rid}")
+  @DeleteMapping("api/review/{rid}")
   public void deleteReview(@PathVariable("rid") Integer rid) {
     reviewService.deleteReview(rid);
   }
