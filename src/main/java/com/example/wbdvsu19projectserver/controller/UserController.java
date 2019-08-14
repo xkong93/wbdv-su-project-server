@@ -71,7 +71,7 @@ public class UserController {
   }
 
   @GetMapping("/api/user/{uid}/publicProfile")
-  public User getPublicProfile(@PathVariable("uid") Integer uid) {
+  public Person getPublicProfile(@PathVariable("uid") Integer uid) {
     try {
       Person person = personRepository.findById(uid).get();
       if (person != null) {
@@ -85,7 +85,7 @@ public class UserController {
 
 
   @GetMapping("/api/user/{uid}/privateProfile")
-  public User getPrivateProfile(@PathVariable("uid") Integer uid) {
+  public Person getPrivateProfile(@PathVariable("uid") Integer uid) {
     Integer loggedInUserId;
     try {
       loggedInUserId = (Integer) session.getAttribute("currentUserId");
@@ -144,7 +144,7 @@ public class UserController {
 //    return getAllProductsFromUserById(uid);
 //  }
   @PutMapping("/api/user/{uid}")
-  public User updateUserById(
+  public Person updateUserById(
           @RequestBody User newUser,
           @PathVariable("uid") Integer uid) {
     return userService.updateUserById(uid, newUser);
