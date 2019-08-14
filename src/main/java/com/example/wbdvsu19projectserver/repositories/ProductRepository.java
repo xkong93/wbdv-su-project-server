@@ -14,5 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Integer> {
     @Query("SELECT product FROM Product product where product.urlKey = :urlKey")
-    public Product findProductByUrlKey(@Param("urlKey") String urlKey);
+    Product findProductByUrlKey(@Param("urlKey") String urlKey);
+
+
 }

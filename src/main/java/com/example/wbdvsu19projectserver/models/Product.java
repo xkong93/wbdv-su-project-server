@@ -53,6 +53,8 @@ public class Product {
   private List<User> collectedUsers;
 
 
+
+
   @ManyToOne
   @JsonIgnore
   private Editor editor;

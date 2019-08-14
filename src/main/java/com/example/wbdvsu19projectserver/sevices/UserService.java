@@ -69,12 +69,12 @@ public class UserService {
     return user.getCollectedProducts();
   }
 
-  public Set<Product> deleteProductFromUser(Integer uid, Integer pid) {
+  public void deleteProductFromUser(Integer uid, String urlKey) {
     User user = userRepository.findById(uid).get();
-    Product product = productRepository.findById(pid).get();
+    Product product = productRepository.findProductByUrlKey(urlKey);
     user.deleteProductFromUser(product);
+    productRepository.save(product);
     userRepository.save(user);
-    return getAllProductsFromUserById(uid);
   }
 
   public Person validate(String username, String password) {
@@ -114,4 +114,6 @@ public class UserService {
     user.setFirstName(newUser.getFirstName());
     return userRepository.save(user);
   }
+
+
 }

@@ -7,6 +7,7 @@ import com.example.wbdvsu19projectserver.sevices.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.nio.file.Path;
+import java.util.List;
 import java.util.Set;
+
 
 /**
  * @author Xuan Kong
@@ -66,6 +70,23 @@ public class EditiorController {
     Editor e = editorService.findEditorById(eid);
     return e.getFeaturedProducts();
   }
+
+  @GetMapping("/api/editor/product")
+  public List<Editor> getAllFeaturedProductsforEditors() {
+    List<Editor> editors = editorService.findAllEditors();
+//    ObjectMapper mapper = new ObjectMapper();
+//    ObjectNode root = mapper.createObjectNode();
+//    ArrayNode myEditors = root.putArray("");
+
+    return editors;
+  }
+
+  @DeleteMapping("/api/editor/{eid}/product/{urlKey}")
+  public void removeProductFromEditorCollection(@PathVariable("urlKey") String urlKey){
+
+      editorService.removeProductFromEditorCollection(urlKey);
+  }
+
 
 
 }

@@ -57,6 +57,7 @@ public class User extends Person {
       product.getCollectedUsers().remove(this);
     }
   }
+
   public boolean getProductFromUser(Product product){
     if (!this.getCollectedProducts().contains(product)){
       return true;

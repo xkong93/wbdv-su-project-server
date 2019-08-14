@@ -37,19 +37,27 @@ public class EditorService {
   }
 
 
-  public Editor findEditorById(Integer eid){
+  public Editor findEditorById(Integer eid) {
     Editor e = editorRepository.findById(eid).get();
     return e;
   }
 
-  public Set<Product> findAllProductsForEditorById(Integer eid){
+  public Set<Product> findAllProductsForEditorById(Integer eid) {
     Editor e = editorRepository.findById(eid).get();
-    return  e.getFeaturedProducts();
+    return e.getFeaturedProducts();
 
   }
 
-  public List<Editor> findAllEditors(){
-    return (List<Editor>)editorRepository.findAll();
+  public List<Editor> findAllEditors() {
+    List<Editor> editors = (List<Editor>) editorRepository.findAll();
+
+    return editors;
+  }
+
+  public void removeProductFromEditorCollection(String urlKey) {
+    Product product = productRepository.findProductByUrlKey(urlKey);
+    product.setEditor(null);
+    productRepository.save(product);
   }
 
 }

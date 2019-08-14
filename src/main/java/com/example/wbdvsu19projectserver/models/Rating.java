@@ -7,6 +7,8 @@ import java.util.Map;
  * @author Xuan Kong
  * @Date 2019-08-02.
  */
+
+//Rating class won't be persisted in dbs. Generated in runtime
 public class Rating {
 
   private double Width;
