@@ -3,6 +3,7 @@ package com.example.wbdvsu19projectserver.controller;
 import com.example.wbdvsu19projectserver.models.Person;
 import com.example.wbdvsu19projectserver.models.Product;
 import com.example.wbdvsu19projectserver.models.User;
+import com.example.wbdvsu19projectserver.repositories.PersonRepository;
 import com.example.wbdvsu19projectserver.sevices.ProductService;
 import com.example.wbdvsu19projectserver.sevices.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,6 +42,9 @@ public class UserController {
   UserService userService;
 
   @Autowired
+  PersonRepository personRepository;
+
+  @Autowired
   ProductService productService;
   @Autowired
   HttpSession session;
@@ -69,8 +73,8 @@ public class UserController {
   @GetMapping("/api/user/{uid}/publicProfile")
   public User getPublicProfile(@PathVariable("uid") Integer uid) {
     try {
-      User user = userService.findUserById(uid);
-      if (user != null) {
+      Person person = personRepository.findById(uid).get();
+      if (person != null) {
         return userService.getPublicUserProfile(uid);
       }
     } catch (Exception e) {
