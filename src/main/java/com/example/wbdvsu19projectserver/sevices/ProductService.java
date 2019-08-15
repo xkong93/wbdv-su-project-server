@@ -24,9 +24,9 @@ public class ProductService {
   private UserRepository userRepository;
 
 
-  public List<Product> createProduct(Product newProduct){
-       productRepository.save(newProduct);
-       return findAllProducts();
+  public Product createProduct(Product newProduct){
+
+       return productRepository.save(newProduct);
   }
 
   public void addUserToProduct(Integer uid, Integer pid) {
