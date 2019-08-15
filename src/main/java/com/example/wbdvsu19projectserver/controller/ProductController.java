@@ -56,7 +56,7 @@ public class ProductController {
   No need to use cors proxy server in back end. Use it only in front end.
    */
   @PostMapping("/api/product/{urlKey}")
-  public Product createProduct(@PathVariable("urlKey") String urlKey) {
+  public void createProduct(@PathVariable("urlKey") String urlKey) {
     String productUrl = "https://stockx.com/api/products/" + urlKey + "?includes=market,360&currency=USD";
     HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
             HttpClientBuilder.create().build());
@@ -75,7 +75,7 @@ public class ProductController {
 
     //convert raw json data into Product
     Product newProduct = rawJsonToProduct(rawJson);
-    return productService.createProduct(newProduct);
+    productService.createProduct(newProduct);
   }
 
   //https://www.journaldev.com/2324/jackson-json-java-parser-api-example-tutorial#jackson-json-8211-read-specific-json-key
