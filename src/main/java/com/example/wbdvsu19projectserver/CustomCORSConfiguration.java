@@ -19,13 +19,13 @@ public class CustomCORSConfiguration {
     corsConfiguration.addAllowedOrigin("https://calm-taiga-99221.herokuapp.com");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
+//    corsConfiguration.addExposedHeader("Set-Cookie");
     corsConfiguration.addExposedHeader("Content-Type");
     corsConfiguration.addExposedHeader("accept");
     corsConfiguration.addExposedHeader("Origin");
     corsConfiguration.addExposedHeader("Access-Control-Request-Method");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
     corsConfiguration.addExposedHeader("Access-Control-Request-Headers");
-    corsConfiguration.addExposedHeader("Set-Cookie");
 
     UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
     corsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
