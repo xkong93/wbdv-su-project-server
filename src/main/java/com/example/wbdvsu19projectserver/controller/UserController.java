@@ -59,7 +59,7 @@ public class UserController {
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
 //      cookie.setSecure(true);
-      cookie.setHttpOnly(true);
+//      cookie.setHttpOnly(true);
       cookie.setDomain("calm-taiga-99221.herokuapp.com");
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
