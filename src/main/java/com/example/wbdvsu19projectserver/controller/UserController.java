@@ -54,12 +54,13 @@ public class UserController {
     Person person = userService.validate(loginUser.getUsername(), loginUser.getPassword());
     if (person != null) {
       session.setAttribute("currentUserId", person.getId());
+
       Cookie cookie = new Cookie("JSESSIONID", session.getId());
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
       cookie.setSecure(true);
-//      cookie.setHttpOnly(true);
-//      cookie.setDomain("*.herokuapp.com");
+      cookie.setHttpOnly(true);
+      cookie.setDomain("calm-taiga-99221.herokuapp.com");
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode root = mapper.createObjectNode();
