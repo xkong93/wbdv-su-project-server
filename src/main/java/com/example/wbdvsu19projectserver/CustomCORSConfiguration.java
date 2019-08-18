@@ -16,10 +16,10 @@ public class CustomCORSConfiguration {
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
     corsConfiguration.setAllowCredentials(true); //kep point!! required
-    corsConfiguration.addAllowedOrigin("*");
+    corsConfiguration.addAllowedOrigin("http://www.sneakerjunkies.life");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
-    corsConfiguration.addExposedHeader("Set-Cookie");
+//    corsConfiguration.addExposedHeader("Set-Cookie");
     corsConfiguration.addExposedHeader("Content-Type");
     corsConfiguration.addExposedHeader("accept");
     corsConfiguration.addExposedHeader("Origin");
