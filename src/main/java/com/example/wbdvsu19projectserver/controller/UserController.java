@@ -59,7 +59,7 @@ public class UserController {
       cookie.setPath("/");
       cookie.setSecure(true);
       cookie.setHttpOnly(true);
-      cookie.setDomain("*.herokuapp.com");
+//      cookie.setDomain("*.herokuapp.com");
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode root = mapper.createObjectNode();
