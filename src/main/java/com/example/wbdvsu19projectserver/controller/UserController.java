@@ -60,7 +60,7 @@ public class UserController {
       cookie.setPath("/");
 //      cookie.setSecure(true);
 //      cookie.setHttpOnly(true);
-      cookie.setDomain(".sneakerjunkies.life");
+      cookie.setDomain("sneakerjunkies.life");
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode root = mapper.createObjectNode();
