@@ -54,11 +54,10 @@ public class UserController {
     Person person = userService.validate(loginUser.getUsername(), loginUser.getPassword());
     if (person != null) {
       session.setAttribute("currentUserId", person.getId());
-
       Cookie cookie = new Cookie("JSESSIONID", session.getId());
       cookie.setMaxAge(30 * 60);// set expire time to 30 mins
       cookie.setPath("/");
-//      cookie.setSecure(true);
+      cookie.setSecure(true);
 //      cookie.setHttpOnly(true);
 //      cookie.setDomain("sneakerjunkies.life");
       response.addCookie(cookie);
@@ -66,6 +65,7 @@ public class UserController {
       ObjectNode root = mapper.createObjectNode();
       root.put("dtype", person.getDtype());
       root.put("uid", person.getId());
+      root.put("sid", session.getId());
       System.out.println(root);
       return root;
     } else if (person == null) {
