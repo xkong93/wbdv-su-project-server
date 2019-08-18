@@ -60,7 +60,7 @@ public class UserController {
       cookie.setPath("/");
       cookie.setSecure(true);
 //      cookie.setHttpOnly(true);
-//      cookie.setDomain("calm-taiga-99221.herokuapp.com");
+      cookie.setDomain("https://calm-taiga-99221.herokuapp.com");
       response.addCookie(cookie);
       ObjectMapper mapper = new ObjectMapper();
       ObjectNode root = mapper.createObjectNode();
