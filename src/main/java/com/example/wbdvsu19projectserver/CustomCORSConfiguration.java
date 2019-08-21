@@ -16,7 +16,7 @@ public class CustomCORSConfiguration {
   private CorsConfiguration buildConfig() {
     CorsConfiguration corsConfiguration = new CorsConfiguration();
     corsConfiguration.setAllowCredentials(true); //kep point!! required
-    corsConfiguration.addAllowedOrigin("https://master.d3v3wgov6ai7nt.amplifyapp.com");
+    corsConfiguration.addAllowedOrigin("*");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
 //    corsConfiguration.addExposedHeader("Set-Cookie");
