@@ -19,7 +19,7 @@ public class CustomCORSConfiguration {
     corsConfiguration.addAllowedOrigin("*");
     corsConfiguration.addAllowedHeader("*");
     corsConfiguration.addAllowedMethod("*");
-//    corsConfiguration.addExposedHeader("Set-Cookie");
+    corsConfiguration.addExposedHeader("Set-Cookie");
     corsConfiguration.addExposedHeader("Content-Type");
     corsConfiguration.addExposedHeader("accept");
     corsConfiguration.addExposedHeader("Origin");
