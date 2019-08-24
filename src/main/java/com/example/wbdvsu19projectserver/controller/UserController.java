@@ -65,8 +65,6 @@ public class UserController {
       ObjectNode root = mapper.createObjectNode();
       root.put("dtype", person.getDtype());
       root.put("uid", person.getId());
-      root.put("sid", session.getId());
-      System.out.println(root);
       return root;
     } else if (person == null) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "USER NOT FOUND");
